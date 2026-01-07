@@ -1,0 +1,1 @@
+ffmpeg -f concat -safe 0 -i video-clips.txt -c copy out/inter.mp4

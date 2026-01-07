@@ -1,0 +1,2 @@
+ffmpeg -i out/inter.mp4 -vf "scale=720:-2" -c:v libvpx-vp9 -crf 32 -b:v 0 -r 12 -row-mt 1 -threads 16 -an out/output.mp4
+ffmpeg -i out/inter.mp4 -vf "scale=720:-2" -c:v libvpx-vp9 -crf 32 -b:v 0 -r 12 -row-mt 1 -threads 16 -an out/output.webm
