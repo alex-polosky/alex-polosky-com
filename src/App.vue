@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import PageHome from './PageHome.vue'
+import { useRoute } from 'vue-router'
+import SiteNav from './SiteNav.vue'
+
+const route = useRoute()
+console.log(route.path)
 </script>
 
 <template>
-  <PageHome />
+  <RouterView v-if="route.path === '/'" />
+  <SiteNav v-else> </SiteNav>
 </template>
 
 <style scoped></style>

@@ -17,9 +17,9 @@ import VideoBackground from './VideoBackground.vue'
         </ol>
       </div>
       <nav>
-        <a href="#">$(whoami)</a>
-        <a href="#">projects</a>
-        <a href="#">skills</a>
+        <RouterLink to="/about">$(whoami?)</RouterLink>
+        <RouterLink to="/projects">projects</RouterLink>
+        <RouterLink to="/skills">skills</RouterLink>
       </nav>
     </div>
   </VideoBackground>
