@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import router from './router'
 
 const routes = router.getRoutes()
+const showMenu = ref(false)
 </script>
 
 <template>
   <div class="resistor">
-    <nav>
+    <header>
+      <span class="menu" @click="showMenu = !showMenu">☰</span>
+      <span class="content"></span>
+    </header>
+    <nav :class="[showMenu ? '' : 'hide-menu']">
       <template v-for="(route, index) in routes" :key="index">
-        <RouterLink :to="route.path">{{ route.name }}</RouterLink>
+        <RouterLink :to="route.path" @click="showMenu = false">{{ route.name }}</RouterLink>
       </template>
     </nav>
     <div class="transistor">
@@ -28,7 +34,6 @@ const routes = router.getRoutes()
 }
 
 .resistor nav {
-  width: 30%;
   flex-shrink: 0;
 }
 
@@ -40,24 +45,13 @@ const routes = router.getRoutes()
 }
 
 nav {
+  flex-basis: 0%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100%;
   position: relative;
-}
-
-nav::after {
-  z-index: 0;
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 80%;
-  background: linear-gradient(to left, #052b36, #020e12);
-  pointer-events: none;
 }
 
 nav a {
@@ -75,5 +69,58 @@ nav a:hover,
 a.router-link-active {
   color: #5ecdf0;
   filter: drop-shadow(0 0 50px #5ecdf0);
+}
+
+header {
+  display: none;
+}
+
+header span.menu {
+  font-size: 2.5em;
+  margin-left: 0.25em;
+}
+
+@media (min-width: 900px) {
+  nav::after {
+    z-index: 0;
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80%;
+    background: linear-gradient(to left, #052b36, #020e12);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 900px) {
+  nav.hide-menu {
+    display: none;
+  }
+
+  .resistor {
+    display: block;
+  }
+
+  header {
+    display: block;
+  }
+
+  nav {
+    display: flex;
+    background: linear-gradient(to left, #052b36, #020e12);
+  }
+
+  nav a {
+    padding-left: 0em;
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  .transistor {
+    display: block;
+    height: 90vh;
+  }
 }
 </style>
