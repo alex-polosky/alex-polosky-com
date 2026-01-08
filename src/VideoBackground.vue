@@ -2,24 +2,62 @@
 import { ref, onMounted } from 'vue'
 
 const videoElement = ref<HTMLVideoElement | null>(null)
+const videoFailed = ref(false)
+const videoSources = ref<{ src: string; type: string }[] | null>(null)
+// const videoSources = ref<{ webm: string; mp4: string } | null>(null)
+
+// Used in template @error handlers
+const handleVideoError = () => {
+  console.warn('Video failed to load, using fallback background')
+  videoFailed.value = true
+}
 
 onMounted(() => {
-  // Ensure video plays (some browsers block autoplay)
-  if (videoElement.value) {
-    // Firefox requires explicit muting
-    videoElement.value.muted = true
-    videoElement.value.play().catch((error) => {
-      console.error('Video autoplay prevented:', error)
-    })
-  }
+  // Load video sources after mount to prevent blocking initial render
+  videoSources.value = [
+    {
+      src: '/video/output.webm',
+      type: 'video/webm',
+    },
+    {
+      src: '/video/output.mp4',
+      type: 'video/mp4',
+    },
+  ]
+  setTimeout(() => {
+    setTimeout(() => {
+      try {
+        if (videoElement.value) {
+          videoElement.value.muted = true
+          videoElement.value.play().catch((error) => {
+            console.error('Video autoplay prevented:', error)
+            handleVideoError()
+          })
+        }
+      } catch (error) {
+        console.error('Video element error:', error)
+        handleVideoError()
+      }
+    }, 100)
+  }, 100)
 })
 </script>
 
 <template>
-  <div class="video-background">
-    <video ref="videoElement" autoplay loop muted playsinline class="video-background__video">
-      <source src="/video/output.webm" type="video/webm" />
-      <source src="/video/output.mp4" type="video/mp4" />
+  <div class="video-background" :class="{ 'video-background__fallback': videoFailed }">
+    <video
+      v-if="videoSources"
+      ref="videoElement"
+      autoplay
+      loop
+      muted
+      playsinline
+      class="video-background__video"
+      @error="handleVideoError"
+    >
+      <template v-for="(source, index) in videoSources" :key="index">
+        <source :src="source.src" :type="source.type" @error="handleVideoError" />
+      </template>
     </video>
     <div class="video-background__overlay">
       <slot></slot>
@@ -64,5 +102,14 @@ onMounted(() => {
   height: 100%;
   background: rgba(5, 43, 54, 0.9);
   z-index: 0;
+}
+
+.video-background__fallback::before {
+  background: #052b36;
+  opacity: 1;
+}
+
+.video-background__fallback .video-background__video {
+  display: none;
 }
 </style>
