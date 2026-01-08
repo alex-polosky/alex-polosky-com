@@ -15,7 +15,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "deploy": "cd dist && cp index.html 404.html && cd .. && cp -r dist/* docs/"
   },
   "dependencies": {
     "pinia": "^3.0.4",
