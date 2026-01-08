@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
+
 interface PortDatum {
   title: string
   blurb: string
@@ -10,7 +14,7 @@ interface PortDatum {
   }[]
 }
 
-const DATA: PortDatum[] = [
+const DATA = ref<PortDatum[]>([
   {
     title: 'DSCSA Solution Platform',
     blurb:
@@ -165,9 +169,92 @@ const DATA: PortDatum[] = [
       },
     ],
   },
-]
+])
+
+const GITHUB = ref([
+  {
+    link: 'ttrpg-audio-scene',
+    text: 'An attempt to create an audio file browser / player sound board to make TTRPG game mastering more fun',
+  },
+  {
+    link: 'pygic-the-conjuring',
+    text: 'The start of a Magic the Gathering card parser and rules engine.',
+  },
+  {
+    link: 'complex-math-calculator',
+    text: 'A complex binary (-1 + i) calculator, written in angular. Support for decimals and arbitrary precision.\nWill eventually be visible at: https://alex-polosky.github.io/complex-math-calculator/',
+  },
+  {
+    link: 'django-microservice-template',
+    text: 'Github template repo to help make microservices easily',
+  },
+  {
+    link: 'genecos-experiment',
+    text: 'Fun demo Django project showcasing client contract mapping',
+  },
+  {
+    link: 'live-xslt',
+    text: 'A live XSLT editor; handy for editing XSLTs with live XML data',
+  },
+  {
+    link: 'pygame-sigil',
+    text: 'This was an attempt (in 2014) to make a gaming library on top of PyGame a la Unreal or Unity. It wasnt very serious',
+  },
+  {
+    link: 'EntityEngine',
+    text: 'This was another attempt (in 2016) to make a gaming engine on top of SharpDX in C#, also similar to Unreal or Unity. It had support for scripting in Python rather than Lua or C#. Was slightly more serious, but never finished',
+  },
+])
 </script>
 
-<template>Filling this page out</template>
+<template>
+  <p>Hi there! This is a collection of some projects I've worked on</p>
+  <p>
+    Currently I'm using
+    <a href="https://antoniandre.github.io/vueper-slides/" target="_blank">vueper slides </a> to
+    drive these as I want to get this page working
+  </p>
+  <p>
+    This site itself is a
+    <a href="https://github.com/alex-polosky/alex-polosky-com" target="_blank">project</a> made
+    using Vue, and is an upgrade from my
+    <a href="https://github.com/alex-polosky/alex-polosky-info" target="_blank">last site</a> which
+    used angular.
+  </p>
+  <p>
+    I've got a few random repos of projects that I've attempted in my spare time, which can be found
+    here:
+  </p>
+  <dl>
+    <template v-for="(data, index) of GITHUB" :key="index">
+      <dt>
+        <a :href="`https://github.com/alex-polosky/${data.link}`" target="_blank">{{
+          data.link
+        }}</a>
+      </dt>
+      <dd>
+        {{ data.text }}
+      </dd></template
+    >
+  </dl>
+  <template v-for="(data, index) in DATA" :key="index">
+    <hr />
+    <h2>{{ data.title }}</h2>
+    <p>{{ data.blurb }}</p>
+    <vueper-slides :slide-ratio="1 / 2" :slide-content-outside="'bottom'">
+      <vueper-slide
+        v-for="(slide, i) in data.images"
+        :key="i"
+        :title="`<h3>${slide.title}</h3>`"
+        :content="`<p>${slide.caption}</p><a href='portfolio/${slide.path}' target='_blank'>View Image</a>`"
+        :image="`portfolio/${slide.path}`"
+      ></vueper-slide>
+    </vueper-slides>
+  </template>
+</template>
 
-<style scoped></style>
+<style scoped>
+a {
+  color: #5ecdf0;
+}
+</style>

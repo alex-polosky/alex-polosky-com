@@ -4,16 +4,13 @@ import { ref, onMounted } from 'vue'
 const videoElement = ref<HTMLVideoElement | null>(null)
 const videoFailed = ref(false)
 const videoSources = ref<{ src: string; type: string }[] | null>(null)
-// const videoSources = ref<{ webm: string; mp4: string } | null>(null)
 
-// Used in template @error handlers
 const handleVideoError = () => {
   console.warn('Video failed to load, using fallback background')
   videoFailed.value = true
 }
 
 onMounted(() => {
-  // Load video sources after mount to prevent blocking initial render
   videoSources.value = [
     {
       src: '/video/output.webm',
