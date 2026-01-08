@@ -24,7 +24,41 @@
     </p>
     <hr />
     <p><b>TTRPG GM:</b> I run several games (DnD, PF2e) and love to create my own worlds.</p>
+    <hr />
+    <p>
+      You can contact me through email by replacing the first `.` in the address bar with an `@`
+      (and maybe replacing `http` with `smtp`), or
+    </p>
+    <p>... you can find out more about me at these places:</p>
+    <nav>
+      <a href="https://github.com/alex-polosky" target="_blank">Github</a>
+      <a href="https://www.linkedin.com/in/alex-polosky/" target="_blank">LinkedIn</a>
+    </nav>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+nav {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  align-items: center;
+}
+
+a {
+  display: block;
+  margin: 0.5em;
+  padding: 1em;
+  width: 10em;
+  background-color: #0c637e;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+a:hover {
+  background-color: #5ecdf0;
+  color: #fff;
+  filter: drop-shadow(0 0 50px #5ecdf0);
+}
+</style>

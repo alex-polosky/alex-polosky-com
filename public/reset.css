@@ -6,10 +6,6 @@ body {
   font-style: normal;
 }
 
-div.transistor {
-  padding: 1em;
-}
-
 .major-mono-display-regular {
   font-family: 'Major Mono Display', monospace;
   font-weight: 400;
