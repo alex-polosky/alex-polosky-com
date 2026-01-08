@@ -11,7 +11,7 @@ const routes = router.getRoutes()
         <RouterLink :to="route.path">{{ route.name }}</RouterLink>
       </template>
     </nav>
-    <div class="content">
+    <div class="transistor">
       <RouterView />
     </div>
   </div>
@@ -32,10 +32,11 @@ const routes = router.getRoutes()
   flex-shrink: 0;
 }
 
-.resistor .content {
+.resistor .transistor {
   flex: 1;
   overflow-y: auto;
-  padding: 1em 2em;
+  padding: 1em calc(min(2em, 2.5vw));
+  color: #eff;
 }
 
 nav {
@@ -65,9 +66,9 @@ nav a {
   color: #0c637e;
   text-decoration: none;
   font-size: 2em;
-  padding: 0.3em 0;
+  padding: 0.3em 0 0.3em 2em;
   width: 100%;
-  margin-left: 3em;
+  box-sizing: border-box;
 }
 
 nav a:hover,

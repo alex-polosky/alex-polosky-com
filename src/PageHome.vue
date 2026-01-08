@@ -64,19 +64,15 @@ import VideoBackground from './VideoBackground.vue'
 }
 
 .callout ol {
+  display: inline-block;
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media (min-aspect-ratio: 2/3) {
   .callout {
     font-size: calc(4vw);
-  }
-
-  .callout ol {
-    list-style-type: none;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
   }
 
   .callout ol li {
@@ -94,6 +90,7 @@ import VideoBackground from './VideoBackground.vue'
 @media (max-aspect-ratio: 2/3) {
   .callout {
     font-size: calc(max(24px, 7vw));
+    margin-top: 1em;
   }
 
   .callout ol li::before,
